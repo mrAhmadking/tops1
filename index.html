@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tops App</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        html, body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: #0F0F0F;
+            color: white;
+        }
+        .app-container {
+            padding: 20px;
+            background: #1A1A1A;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .coin-display {
+            background: #444;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            color: #FFD700;
+            margin-bottom: 20px;
+        }
+        .missions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .mission {
+            background: #333;
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .mission h3 {
+            font-size: 18px;
+        }
+        .mission button {
+            background: #4ECDC4;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .mission button:hover {
+            transform: scale(1.1);
+        }
+        .invite-section {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .invite-section button {
+            background: #4ECDC4;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+        .invite-section button:hover {
+            transform: scale(1.1);
+        }
+        .copy-message {
+            color: #FFD700;
+            margin-top: 10px;
+            font-size: 18px;
+            display: none;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #2A2A2A;
+            padding: 15px;
+            display: flex;
+            justify-content: space-around;
+        }
+        .nav-item {
+            text-align: center;
+            color: #888;
+            font-size: 12px;
+        }
+        .nav-item.active {
+            color: #4ECDC4;
+        }
+        .nav-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        .content {
+            display: none;
+        }
+        .content.active {
+            display: block;
+        }
+        .wallet-header {
+            font-size: 36px;
+            color: #4ECDC4;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .wallet-balance {
+            background: #4ECDC4;
+            color: #000;
+            padding: 20px 30px;
+            border-radius: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            cursor: pointer;
+        }
+        .wallet-log ul {
+            list-style: none;
+            padding: 0;
+        }
+        .wallet-log li {
+            background: #444;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        /* Ad Banner Styles */
+        .ad-banner {
+            background: #333;
+            padding: 10px;
+            text-align: center;
+            margin: 20px 0;
+            border-radius: 10px;
+            display: none; /* Makes the ad invisible */
+        }
+        .ad-banner img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Home Page -->
+        <div id="home" class="content active">
+            <div class="header">
+                <h1>TOPS</h1>
+            </div>
+            <div class="coin-display">
+                Your Coins: <span id="coinBalance">0</span>
+            </div>
+            
+            <!-- Ad Banner -->
+            <div class="ad-banner">
+                <img src="https://via.placeholder.com/728x90?text=Advertisement" alt="Ad" data-ad-format="auto">
+            </div>
+
+            <div class="missions">
+                <div class="mission">
+                    <h3>Follow Us on Telegram</h3>
+                    <a href="https://t.me/freeganeplay" target="_blank">
+                        <button id="telegramButton">Follow</button>
+                    </a>
+                </div>
+                <div class="mission">
+                    <h3>Subscribe to Our YouTube Channel</h3>
+                    <a href="https://youtube.com/@tops-k8w" target="_blank">
+                        <button id="youtubeButton">Subscribe</button>
+                    </a>
+                </div>
+                <div class="mission">
+                    <h3>Follow Us on Instagram</h3>
+                    <a href="https://www.instagram.com/mrahmadraza47" target="_blank">
+                        <button id="instagramButton">Follow</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Friends Page -->
+        <div id="friends" class="content">
+            <div class="header">
+                <h1>Invite Friends</h1>
+            </div>
+            <div class="invite-section">
+                <button onclick="copyInviteLink()">Invite Friend</button>
+                <div id="copyMessage" class="copy-message">Code Copied!</div>
+            </div>
+
+            <!-- Ad Banner -->
+            <div class="ad-banner">
+                <img src="https://via.placeholder.com/728x90?text=Advertisement" alt="Ad" data-ad-format="auto">
+            </div>
+        </div>
+
+        <!-- Wallet Page -->
+        <div id="wallet" class="content">
+            <div class="wallet-header">Wallet</div>
+            <div id="walletBalance" class="wallet-balance" onclick="handleClick()">Balance: 0 Coins</div>
+            <div class="wallet-log">
+                <h3>Click Log:</h3>
+                <ul id="clickLog"></ul>
+            </div>
+
+            <!-- Ad Banner -->
+            <div class="ad-banner">
+                <img src="https://via.placeholder.com/728x90?text=Advertisement" alt="Ad" data-ad-format="auto">
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="navigation">
+            <a href="#home" class="nav-item active" onclick="switchTab('home')">
+                <i class="fas fa-home nav-icon"></i>
+                <div>Home</div>
+            </a>
+            <a href="#friends" class="nav-item" onclick="switchTab('friends')">
+                <i class="fas fa-user-friends nav-icon"></i>
+                <div>Friends</div>
+            </a>
+            <a href="#wallet" class="nav-item" onclick="switchTab('wallet')">
+                <i class="fas fa-wallet nav-icon"></i>
+                <div>Wallet</div>
+            </a>
+        </nav>
+    </div>
+
+    <script>
+        // Tab Switching Function
+        function switchTab(tabId) {
+            const tabs = document.querySelectorAll('.content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+            document.querySelector(.nav-item[href='#${tabId}']).classList.add('active');
+        }
+
+        // Invite Link Copy Functionality
+        function copyInviteLink() {
+            const inviteLink = 'https://t.me/top_45_Bot?start=TOPS12345'; // Replace this with your actual bot link
+            navigator.clipboard.writeText(inviteLink).then(function() {
+                // Show the "Code Copied!" message
+                const copyMessage = document.getElementById('copyMessage');
+                copyMessage.style.display = 'block';
+                
+                // Hide the message after 2 seconds
+                setTimeout(function() {
+                    copyMessage.style.display = 'none';
+                }, 2000);
+            }, function(err) {
+                alert('Error copying link: ', err);
+            });
+        }
+
+        // Wallet Click Functionality
+        let clickCount = localStorage.getItem('walletClickCount') ? parseInt(localStorage.getItem('walletClickCount')) : 0;
+
+        function handleClick() {
+            clickCount++;
+            localStorage.setItem('walletClickCount', clickCount);
+
+            const clickLog = document.getElementById('clickLog');
+            const logItem = document.createElement('li');
+            logItem.textContent = Click #${clickCount};
+            clickLog.appendChild(logItem);
+        }
+
+        function loadClickLog() {
+            const clickLog = document.getElementById('clickLog');
+            for (let i = 1; i <= clickCount; i++) {
+                const logItem = document.createElement('li');
+                logItem.textContent = Click #${i};
+                clickLog.appendChild(logItem);
+            }
+        }
+
+        // Load Click Log on Page Load
+        window.onload = loadClickLog;
+    </script>
+</body>
+</html>
